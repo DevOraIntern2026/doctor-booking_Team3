@@ -1,0 +1,7 @@
+import 'package:doctor_booking_app/config/base_response/base_response.dart';
+import 'package:doctor_booking_app/features/auth/login/domain/entities/login_request_entity.dart';
+import 'package:doctor_booking_app/features/auth/login/domain/entities/user_entity.dart';
+
+abstract class LoginRepoContract {
+  Future<BaseResponse<UserEntity>> login(LoginRequestEntity request);
+}

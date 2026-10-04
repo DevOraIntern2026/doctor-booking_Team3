@@ -12,7 +12,7 @@ class AppTheme {
       foregroundColor: AppColors.whiteColor,
     ),
     scaffoldBackgroundColor: AppColors.whiteColor,
-    textTheme: GoogleFonts.soraTextTheme(
+    textTheme: GoogleFonts.cairoTextTheme(
       const TextTheme(
         headlineLarge: TextStyle(
           fontSize: 42,
@@ -30,14 +30,14 @@ class AppTheme {
           color: AppColors.whiteColor
         ),
         titleLarge: TextStyle(
-          fontSize: 32,
-          fontWeight: FontWeight.w600,
-          color: AppColors.primaryColor
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: AppColors.blackColor
         ),
         titleMedium: TextStyle(
-          fontSize: 24,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
-          color: AppColors.primaryColor
+          color: AppColors.darkGreyColor
         ),
         titleSmall: TextStyle(
           fontSize: 18,
@@ -55,52 +55,61 @@ class AppTheme {
           color: AppColors.blackColor
         ),
         bodySmall: TextStyle(
-          fontSize: 13,
-          fontWeight: FontWeight.w300,
-          color: AppColors.primaryColor
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: AppColors.secondaryTextBlackColor
+        ),
+        labelMedium: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          color: AppColors.blueColor
+        ),
+        labelSmall: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: AppColors.googleButBlackColor
         )
       )
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.blueColor,
         foregroundColor: AppColors.whiteColor,
-        padding: EdgeInsets.symmetric(vertical: 8,horizontal: 16),
-        textStyle: GoogleFonts.sora(
-          fontWeight: FontWeight.w600,
+        padding: EdgeInsets.symmetric(vertical: 15,horizontal: 16),
+        textStyle: GoogleFonts.cairo(
+          fontWeight: FontWeight.w500,
           color: AppColors.whiteColor,
-          fontSize: 16
+          fontSize: 14
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(20))
+        shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12))
       )
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       floatingLabelBehavior: FloatingLabelBehavior.never,
       fillColor: AppColors.whiteColor,
-      labelStyle: GoogleFonts.sora(color: AppColors.greyColor),
-      hintStyle: GoogleFonts.sora(color: AppColors.greyColor),
+      hintStyle: GoogleFonts.cairo(color: AppColors.greyColor,fontWeight: FontWeight.w500,fontSize: 12),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(color: AppColors.greyColor,width: 1.5)
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(color: AppColors.greyColor,width: 1.5)
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(color: AppColors.greyColor,width: 1.5)
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(color: AppColors.redColor,width: 1.5)
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(color: AppColors.redColor,width: 1.5)
       ),
-      errorStyle: GoogleFonts.sora(color: AppColors.redColor,fontSize: 13),
+      errorStyle: GoogleFonts.cairo(color: AppColors.redColor,fontSize: 13),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: AppColors.primaryColor,

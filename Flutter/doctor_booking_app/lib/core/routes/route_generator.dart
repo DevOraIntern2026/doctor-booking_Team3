@@ -1,4 +1,6 @@
 import 'package:doctor_booking_app/core/routes/app_routes.dart';
+import 'package:doctor_booking_app/features/auth/login/presentation/views/screens/login_screen.dart';
+import 'package:doctor_booking_app/features/auth/register/presentation/views/screens/register_screen.dart';
 import 'package:doctor_booking_app/features/on_boarding/views/screens/on_boarding_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +8,11 @@ class RouteGenerator {
   static Route<dynamic> getRoutes(RouteSettings settings){
     switch(settings.name){
        case AppRoutes.onBoarding:
-        return MaterialPageRoute(builder: (context) => const OnBoardingScreen(),);  
+        return MaterialPageRoute(builder: (context) => const OnBoardingScreen(),); 
+       case AppRoutes.login:
+        return MaterialPageRoute(builder: (context) => const LoginScreen(),);
+       case AppRoutes.register:
+        return MaterialPageRoute(builder: (context) => const RegisterScreen(),);   
        default:
         return unDefinedRoute();
     }
