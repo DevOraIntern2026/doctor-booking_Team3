@@ -1,5 +1,6 @@
 import 'package:doctor_booking_app/core/routes/app_routes.dart';
 import 'package:doctor_booking_app/features/on_boarding/views/screens/on_boarding_screen.dart';
+import 'package:doctor_booking_app/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -7,8 +8,16 @@ class RouteGenerator {
     switch(settings.name){
        case AppRoutes.onBoarding:
         return MaterialPageRoute(builder: (context) => const OnBoardingScreen(),);  
+       case AppRoutes.splash:
+        return MaterialPageRoute(
+          builder: (context) => const SplashScreen(
+            isFirstTime: true,
+            isLoggedIn: false,
+          ),
+        );
        default:
         return unDefinedRoute();
+
     }
   }
   static Route<dynamic> unDefinedRoute() {

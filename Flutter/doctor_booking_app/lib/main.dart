@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: RouteGenerator.getRoutes,
-      initialRoute: AppRoutes.onBoarding,
+      initialRoute: AppRoutes.splash,
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
     );
