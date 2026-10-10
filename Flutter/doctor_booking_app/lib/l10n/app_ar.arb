@@ -23,7 +23,7 @@
     "do_not_have_account": "ليس لديك حساب؟",
     "login": "تسجيل الدخول",
     "forgot_password": "نسيت كلمة المرور؟",
-    "continue_with_google": "المتابعة عبر جوجل",
+    "continue_with_google": "المتابعة باستخدام Google",
     "ok": "حسنًا",
     "already_have_account": "لديك حساب بالفعل؟",
     "cancel": "إلغاء",
@@ -32,5 +32,18 @@
     "failure": "فشل",
     "user_sign_up_success": "تم إنشاء الحساب بنجاح",
     "user_sign_in_success": "تم تسجيل الدخول بنجاح",
-    "agreement_required": "يرجى الموافقة على الشروط والأحكام وسياسة الخصوصية للمتابعة"
+    "agreement_required": "يرجى الموافقة على الشروط والأحكام وسياسة الخصوصية للمتابعة",
+    "forget_password_instruction":"أدخل البريد الإلكتروني المرتبط بحسابك، وهنبعتلك رمز تحقق لإعادة تعيين كلمة المرور.",
+    "send_otp":"ارسال رمز التحقيق",
+    "hint_email":"ادخل بريدك الالكتروني",
+    "enter_otp":"أدخل رمز التحقق",
+    "enter_otp_instructions":"أدخل رمز التحقق المكوّن من 6 أرقام اللي بعتناه على بريدك الإلكتروني:",
+    "resending_otp_duration":"إعادة الإرسال بعد 35 ثانية",
+    "otp_err_text":"رمز التحقق غير صحيح. حاول مرة أخرى.",
+    "make_new_password":"إنشاء كلمة مرور جديدة",
+    "new_password_instruction":"اختار كلمة مرور جديدة لحسابك.",
+    "label_new_password":"كلمه المرور الجديده",
+    "hint_new_password":"ادخل كلمه المرور الجديدة",
+    "hint_confirm_new_password":"اعد ادخال كلمه المرور الجديده",
+    "save_password":"حفظ كلمه المرور"
 }

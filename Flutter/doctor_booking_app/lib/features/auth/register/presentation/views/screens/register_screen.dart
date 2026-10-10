@@ -1,6 +1,7 @@
 import 'package:doctor_booking_app/config/di/di.dart';
 import 'package:doctor_booking_app/core/resources/app_assets.dart';
 import 'package:doctor_booking_app/core/resources/app_colors.dart';
+import 'package:doctor_booking_app/core/routes/app_routes.dart';
 import 'package:doctor_booking_app/core/ui_utils/dialog_utils.dart';
 import 'package:doctor_booking_app/core/validators/app_validators.dart';
 import 'package:doctor_booking_app/features/auth/register/presentation/view_model/register_events.dart';
@@ -62,7 +63,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: nameController,
                             decoration: InputDecoration(
                               hintText: AppLocalizations.of(context)!.hint_full_name,
-                              prefixIcon: Icon(Icons.person,color: AppColors.greyColor,)
+                              prefixIcon: Icon(Icons.person_outline,color: AppColors.greyColor,)
                             ),
                             autovalidateMode: AutovalidateMode.onUserInteraction,
                             validator: (value) {
@@ -76,7 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: emailController,
                             decoration: InputDecoration(
                               hintText: AppLocalizations.of(context)!.email,
-                              prefixIcon: Icon(Icons.email,color: AppColors.greyColor,)
+                              prefixIcon: Icon(Icons.email_outlined,color: AppColors.greyColor,)
                             ),
                             autovalidateMode: AutovalidateMode.onUserInteraction,
                             validator: (value) {
@@ -91,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: passwordController,
                             decoration: InputDecoration(
                               hintText: AppLocalizations.of(context)!.password,
-                              prefixIcon: Icon(Icons.lock,color: AppColors.greyColor,),
+                              prefixIcon: Icon(Icons.lock_outlined,color: AppColors.greyColor,),
                               suffixIcon: IconButton(
                                 onPressed: () {
                                   viewModel.doIntent(TogglePasswordVisibilityEvent());
@@ -112,7 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: confirmPasswordController,
                             decoration: InputDecoration(
                               hintText: AppLocalizations.of(context)!.hint_confirm_password,
-                              prefixIcon: Icon(Icons.lock,color: AppColors.greyColor,),
+                              prefixIcon: Icon(Icons.lock_outline,color: AppColors.greyColor,),
                               suffixIcon: IconButton(
                                 onPressed: () {
                                   viewModel.doIntent(ToggleConfirmPasswordVisibilityEvent());
@@ -251,8 +252,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   message: AppLocalizations.of(context)!.user_sign_up_success,
                   posActionName: AppLocalizations.of(context)!.ok,
                   posAction: () {
-                    // //Navigator.pop(context);
-                    // Navigator.pushReplacementNamed(context, AppRoutes.home);
+                    Navigator.pop(context);
+                    Navigator.pushReplacementNamed(context, AppRoutes.home);
                   },
                 );
               }else if(state.registerState?.isLoading==false && state.registerState?.errorMessage!=null){

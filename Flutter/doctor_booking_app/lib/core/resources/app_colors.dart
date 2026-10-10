@@ -5,7 +5,7 @@ abstract class AppColors {
   static const Color blackColor=Color(0xFF262626);
   static const Color transparentColor = Colors.transparent;
   static const Color whiteColor=Color(0XFFF7FAFC);
-  static const Color redColor=Color(0XFFC62828);
+  static const Color redColor=Color(0XFFB00020);
   static const Color darkGreyColor=Color(0XFF6F6F6F);
   static const Color greyColor=Color(0xff667085);
   static const Color lightGreyColor = Color(0xffD9E2EC);
@@ -15,4 +15,6 @@ abstract class AppColors {
   static const Color dividerColor=Color(0XFFE9E9E9);
   static const Color secondaryTextBlackColor=Color(0XFF001C45);
   static const Color googleButBlackColor=Color(0xFF000000);
+  static const Color pinputBgWhiteColor=Color(0XFFFFFFFF);
+  static const Color pinputBgErrColor=Color(0XFFF7E6E9);
 }

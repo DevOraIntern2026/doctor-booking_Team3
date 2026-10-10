@@ -32,5 +32,18 @@
     "failure":"Failure",
     "user_sign_up_success":"User created successfully",
     "user_sign_in_success":"User logged in successfully",
-    "agreement_required": "Please accept the Terms and Conditions and Privacy Policy to continue"
+    "agreement_required": "Please accept the Terms and Conditions and Privacy Policy to continue",
+    "forget_password_instruction": "Enter the email linked to your account, and we'll send you a verification code to reset your password.",
+    "send_otp": "Send verification code",
+    "hint_email": "Enter your email",
+    "enter_otp": "Enter verification code",
+    "enter_otp_instructions": "Enter the 6-digit verification code we sent to your email:",
+    "resending_otp_duration": "Resend in 35 seconds",
+    "otp_err_text": "Incorrect verification code. Please try again.",
+    "make_new_password": "Create a new password",
+    "new_password_instruction": "Choose a new password for your account.",
+    "label_new_password": "New password",
+    "hint_new_password": "Enter your new password",
+    "hint_confirm_new_password": "Re-enter your new password",
+    "save_password": "Save password"
 }

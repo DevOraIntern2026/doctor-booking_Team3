@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: emailController,
                             decoration: InputDecoration(
                               hintText: AppLocalizations.of(context)!.email,
-                              prefixIcon: Icon(Icons.email,color: AppColors.greyColor,)
+                              prefixIcon: Icon(Icons.email_outlined,color: AppColors.greyColor,)
                             ),
                             autovalidateMode: AutovalidateMode.onUserInteraction,
                             validator: (value) {
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             obscureText: state.isPasswordHidden!,
                             decoration: InputDecoration(
                               hintText: AppLocalizations.of(context)!.password,
-                              prefixIcon: Icon(Icons.lock,color: AppColors.greyColor,),
+                              prefixIcon: Icon(Icons.lock_outline,color: AppColors.greyColor,),
                               suffixIcon: IconButton(
                                 onPressed: () {
                                   viewModel.doIntent(TogglePasswordVisibilityEvent());
@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               TextButton(
                                 onPressed: () {
-                                  
+                                  Navigator.pushNamed(context, AppRoutes.forgetPassword);
                                 }, 
                                 child: Text(AppLocalizations.of(context)!.forgot_password,style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                   color: AppColors.blueColor
@@ -185,8 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   message: AppLocalizations.of(context)!.user_sign_in_success,
                   posActionName: AppLocalizations.of(context)!.ok,
                   posAction: () {
-                    // //Navigator.pop(context);
-                    // Navigator.pushReplacementNamed(context, AppRoutes.home);
+                    Navigator.pop(context);
+                    Navigator.pushReplacementNamed(context, AppRoutes.home);
                   },
                 );
               }else if(state.loginUserState?.isLoading==false && state.loginUserState?.errorMessage!=null){
