@@ -6,6 +6,7 @@ import 'package:doctor_booking_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/resources/app_colors.dart';
+import '../../../../core/routes/app_routes.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -17,6 +18,10 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
+
+  void _finishOnboarding() {
+    Navigator.of(context).pushReplacementNamed(AppRoutes.login);
+  }
 
   @override
   void dispose() {
@@ -69,6 +74,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               OnboardingSkipButton(
                 visible: _currentPage > 0,
                 label: localization.onboarding_skip,
+                onPressed: _finishOnboarding,
               ),
               Expanded(
                 child: PageView.builder(
@@ -127,6 +133,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           duration: Duration(milliseconds: 300),
                           curve: Curves.easeInOut,
                         );
+                      }else{
+                        _finishOnboarding();
                       }
                     },
                     child: Row(
