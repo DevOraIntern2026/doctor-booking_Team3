@@ -47,4 +47,5 @@ app.*.map.json
 **/*.config.dart
 **/*.mocks.dart
 app_localizations_en.dart
+app_localizations_ar.dart
 app_localizations.dart
