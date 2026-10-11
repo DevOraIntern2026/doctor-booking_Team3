@@ -43,7 +43,7 @@ class RegisterViewModel extends Cubit<RegisterStates>{
         emit(state.copyWith(
           registerState: BaseState<UserEntity>(
             isLoading: false,
-            errorMessage: res.error.toString()
+            errorMessage: res.error.message
           )
         ));
     }

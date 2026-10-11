@@ -38,7 +38,7 @@ class VerifyResetCodeViewModel extends Cubit<VerifyResetCodeStates>{
         emit(state.copyWith(
           verifyOtpState: BaseState<VerifyResetCodeResponseEntity>(
             isLoading: false,
-            errorMessage: res.error.toString()
+            errorMessage: res.error.message
           )
         ));
     }

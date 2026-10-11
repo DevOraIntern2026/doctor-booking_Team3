@@ -38,7 +38,7 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates>{
         emit(state.copyWith(
           forgetPasswordState: BaseState<ForgetPasswordResponseEntity>(
             isLoading: false,
-            errorMessage: res.error.toString()
+            errorMessage: res.error.message
           )
         ));
     }

@@ -42,7 +42,7 @@ class ResetPasswordViewModel extends Cubit<ResetPasswordStates>{
         emit(state.copyWith(
           resetPasswordState: BaseState<ResetPasswordResponseEntity>(
             isLoading: false,
-            errorMessage: res.error.toString()
+            errorMessage: res.error.message
           )
         ));
     }
