@@ -15,13 +15,17 @@ const refreshDoctorRating = async (doctorId) => {
   await Doctor.updateOne({ _id: doctorId }, { rating_average, rating_count });
   return { rating_average, rating_count };
 };
+const initials = (name) =>
+  name
+    ? name.trim().split(/\s+/).slice(0, 2).map((w) => `${w[0]}.`).join(" ")
+    : null;
 
 const toDto = (r) => ({
   id: r._id,
   rating: r.rating,
   comment: r.comment ?? "",
   created_at: r.created_at,
-  patient_name: r.patient_id?.full_name ? r.patient_id.full_name.split(" ")[0] : null, 
+  patient_name: initials(r.patient_id?.full_name), 
 });
 
 // ---------------- GET /api/doctors/:id/reviews ----------------
@@ -41,7 +45,7 @@ export const getDoctorReviews = async (req, res, next) => {
       return next({ message: "Doctor not found", statusCode: 404 });
     }
 
-    const [items, total] = await Promise.all([
+    const [items, total, groups] = await Promise.all([
       Review.find({ doctor_id: id })
         .sort({ created_at: -1 })
         .skip((page - 1) * limit)
@@ -49,7 +53,18 @@ export const getDoctorReviews = async (req, res, next) => {
         .populate("patient_id", "full_name")
         .lean(),
       Review.countDocuments({ doctor_id: id }),
+      Review.aggregate([
+        { $match: { doctor_id: doctor._id } },
+        { $group: { _id: "$rating", count: { $sum: 1 } } },
+      ]),
     ]);
+
+    const counts = Object.fromEntries(groups.map((g) => [g._id, g.count]));
+    const distribution = [5, 4, 3, 2, 1].map((stars) => ({
+      stars,
+      count: counts[stars] || 0,
+      percent: total ? Math.round(((counts[stars] || 0) / total) * 100) : 0,
+    }));
 
     res.status(200).json({
       success: true,
@@ -61,6 +76,7 @@ export const getDoctorReviews = async (req, res, next) => {
         total_pages: Math.ceil(total / limit),
         rating_average: doctor.rating_average,
         rating_count: doctor.rating_count,
+        distribution,
       },
     });
   } catch (err) {

@@ -250,8 +250,8 @@ export const getDoctorById = async (req, res, next) => {
       _id: id,
       is_active: true
     })
-      .select(
-        "user_id speciality_id bio education_and_qualifications clinic_address consultation_fee rating_average title image years_of_experience clinic_name area governorate rating_count"
+          .select(
+        "user_id speciality_id bio education_and_qualifications clinic_address consultation_fee rating_average rating_count title image years_of_experience clinic_name area governorate location schedule slot_duration_minutes"
       )
       .populate("user_id", "full_name avatar")
       .populate("speciality_id", "name");
@@ -262,12 +262,19 @@ export const getDoctorById = async (req, res, next) => {
         statusCode: 404
       });
     }
+    const obj = doctor.toObject();
 
     res.status(200).json({
       success: true,
-      data: doctor
+      data: {
+        ...obj,
+        education: (obj.education_and_qualifications || "")
+          .split(/\r?\n/)
+          .map((s) => s.trim())
+          .filter(Boolean),
+        schedule: scheduleSummary(doctor),
+      },
     });
-
   } catch (err) {
     next(err);
   }
