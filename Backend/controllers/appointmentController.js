@@ -14,11 +14,10 @@ const BOOKING_PREFIX = "MI3";
 
 const generateReference = () =>
   `${BOOKING_PREFIX}-${crypto.randomInt(10000000, 100000000)}`;
-
 const doctorPopulate = {
   path: "doctor_id",
   select:
-    "user_id speciality_id title image clinic_name clinic_address area governorate consultation_fee",
+    "user_id speciality_id title image clinic_name clinic_address area governorate consultation_fee location",
   populate: [
     { path: "user_id", select: "full_name" },
     { path: "speciality_id", select: "name" },
@@ -38,18 +37,26 @@ const doctorSummary = (d) =>
         area: d.area ?? null,
         governorate: d.governorate ?? null,
         consultation_fee: d.consultation_fee ?? null,
+        location:
+          d.location?.latitude != null && d.location?.longitude != null
+            ? { latitude: d.location.latitude, longitude: d.location.longitude }
+            : null,
       }
     : null;
 
-const toDto = (a, doctor) => ({
-  id: a._id,
-  booking_reference: a.booking_reference,
-  appointment_date: new Date(a.appointment_date).toISOString().slice(0, 10), // "2026-10-11"
-  appointment_time: a.appointment_time,                                      // "17:30"
-  status: a.status,
-  notes: a.notes ?? null,
-  doctor: doctorSummary(doctor),
-});
+const toDto = (a, doctor) => {
+  const dateStr = new Date(a.appointment_date).toISOString().slice(0, 10);
+  return {
+    id: a._id,
+    booking_reference: a.booking_reference,
+    appointment_date: dateStr,
+    appointment_time: a.appointment_time,
+    status: a.status,
+    can_cancel: a.status === "upcoming" && isFuture(dateStr, a.appointment_time),
+    notes: a.notes ?? null,
+    doctor: doctorSummary(doctor),
+  };
+};
 
 // ---------------- POST /api/appointments/book ----------------
 export const bookAppointment = async (req, res, next) => {
