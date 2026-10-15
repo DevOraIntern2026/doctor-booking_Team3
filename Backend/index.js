@@ -11,6 +11,10 @@ import userRouter from "./routes/userRouter.js";
 import AIRouter from "./routes/aiRoutes.js";
 import insuranceRouter from "./routes/insuranceRoutes.js";
 import { ErrorHandler } from "./utils/ErrorHandler.js";
+import { startAppointmentJobs } from "./jobs/appointmentJobs.js";
+import scheduleRouter from "./routes/scheduleRouter.js";
+import reviewRouter from "./routes/reviewRouter.js";
+import doctorRouter from "./routes/doctorRouter.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -36,9 +40,9 @@ app.use("/api/user", userRouter);
 app.use("/api/ai", AIRouter);
 app.use("/api/patient", patientRouter);
 app.use("/api/insurance", insuranceRouter);
-
-
-
+app.use("/api/doctors", reviewRouter);
+app.use("/api/doctors", scheduleRouter);
+app.use("/api/doctors", doctorRouter);
 
 app.get("/test", (req, res) => {
   res.json({
@@ -55,6 +59,7 @@ app.use(ErrorHandler);
 
 // ---------- Start ----------
 connectDB().then(() => {
+    startAppointmentJobs();
   app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
 });
 

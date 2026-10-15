@@ -3,9 +3,11 @@ import User from "../models/user.js";
 import {createAdminSchema,} from "../validators/authValidator.js";
 import Dr from "../models/doctor.js";
 import Speciality from "../models/speciality.js";
+import { updateScheduleSchema } from "../validators/scheduleValidator.js";
+import { scheduleSummary } from "../utils/slots.js";
 
 
-
+const dr = await Dr.findById(id).populate("user_id", "full_name");
 
 export const acceptDoctor = async (req, res, next) => {
   try {
@@ -21,7 +23,7 @@ export const acceptDoctor = async (req, res, next) => {
     dr.approval_status = "accepted";
     await dr.save();
 
-    res.status(200).json({ success: true, message: `Dr. ${dr.name} is now active` });
+    res.status(200).json({ success: true, message: `Dr. ${dr.user_id?.full_name} has been accepted` });
   } catch (err) {
     next(err);
   }
@@ -42,7 +44,7 @@ export const cancellDoctor = async (req, res, next) => {
     dr.approval_status = "cancelled";
     await dr.save();
 
-    res.status(200).json({ success: true, message: `Dr. ${dr.name} is now active` });
+    res.status(200).json({ success: true,message: `Dr. ${dr.user_id?.full_name} has been cancelled` });
   } catch (err) {
     next(err);
   }
@@ -63,7 +65,7 @@ export const activateDoctor = async (req, res, next) => {
     dr.is_active = true;
     await dr.save();
 
-    res.status(200).json({ success: true, message: `Dr. ${dr.name} is now active` });
+    res.status(200).json({ success: true, message: `Dr. ${dr.user_id?.full_name} is now active` });
   } catch (err) {
     next(err);
   }
@@ -85,7 +87,7 @@ export const deactivateDoctor = async (req, res, next) => {
     dr.is_active = false;
     await dr.save();
 
-    res.status(200).json({ success: true, message: `Dr. ${dr.name} is now deactivated` });
+    res.status(200).json({ success: true, message: `Dr. ${dr.user_id?.full_name} is now deactivated`});
   } catch (err) {
     next(err);
   }
@@ -212,7 +214,7 @@ if (is_active === "false") {
       .populate("user_id", "full_name email")
       .populate("speciality_id", "name")
       .select(
-        "user_id speciality_id title image consultation_fee rating_average area governorate is_active approval_status"
+        "user_id speciality_id title image consultation_fee rating_average area governorate is_active approval_status schedule slot_duration_minutes"
       )
       .sort({ rating_average: -1 });
 
@@ -225,6 +227,7 @@ if (is_active === "false") {
       rating: doctor.rating_average,
       is_active: doctor.is_active,
       approval_status: doctor.approval_status,
+      schedule: scheduleSummary(doctor),
       
     }));
 
@@ -286,14 +289,29 @@ export const createManyDoctors = async (req, res, next) => {
         languages,
         license_number,
         location,
-        availability,
+        schedule,
         slot_duration_minutes
       } = doctorData;
 
       if (!full_name || !email || !password || !speciality_id) {
         continue;
       }
+            let scheduleData;
+      if (schedule) {
+        const { error, value } = updateScheduleSchema.validate(
+          { ...schedule, slot_duration_minutes },
+          { stripUnknown: true }
+        );
+        if (error) continue;
 
+        scheduleData = {
+          working_days: [...value.working_days].sort((a, b) => a - b),
+          start_time: value.start_time,
+          end_time: value.end_time,
+          break_start: value.break_start ?? null,
+          break_end: value.break_end ?? null,
+        };
+      }
       const speciality = await Speciality.findById(speciality_id);
 
       if (!speciality) {
@@ -344,7 +362,7 @@ export const createManyDoctors = async (req, res, next) => {
         languages,
         license_number,
         location,
-        availability,
+        schedule: scheduleData,
         slot_duration_minutes,
         approval_status: "accepted",
         is_active: true

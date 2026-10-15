@@ -142,7 +142,7 @@ export const getMyAppointments = async (req, res, next) => {
 
     const filter = {
       patient_id: req.user.id,
-      status: tab === "upcoming" ? "upcoming" : { $in: ["completed", "cancelled"] },
+      status: tab === "upcoming" ? "upcoming" : { $in: ["completed","missed", "cancelled"] },
     };
 
     const sort =
