@@ -1,6 +1,7 @@
 import "dotenv/config";
 import cors from "cors";
 import morgan from "morgan";
+import mongoose from "mongoose";
 import express from "express";
 import connectDB from "./config/db.js";
 import authRouter from "./routes/authRouter.js";
@@ -31,7 +32,22 @@ app.use((err, req, res, next) => {
   }
   next(err);
 });
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    db: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+  });
+});
 
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({
+      success: false,
+      message: "Database is not connected, please try again shortly",
+    });
+  }
+  next();
+});
 // ---------- Routes ----------
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
@@ -59,12 +75,17 @@ app.use(ErrorHandler);
 
 // ---------- Start ----------
 connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port: ${PORT}`);
     startAppointmentJobs();
-  app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
+  });
 });
 
 
 process.on("unhandledRejection", (err) => {
-  console.error("Critical Error:", err);
-  process.exit(1);
+  console.error("Unhandled rejection:", err);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught exception:", err);
 });

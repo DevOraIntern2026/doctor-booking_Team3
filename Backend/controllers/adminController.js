@@ -7,12 +7,11 @@ import { updateScheduleSchema } from "../validators/scheduleValidator.js";
 import { scheduleSummary } from "../utils/slots.js";
 
 
-const dr = await Dr.findById(id).populate("user_id", "full_name");
 
 export const acceptDoctor = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const dr = await Dr.findById(id);
+    const dr = await Dr.findById().populate("user_id", "full_name");
 
     if (!dr) return next({ message: "Doctor not found", statusCode: 404 });
 
